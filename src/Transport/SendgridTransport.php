@@ -40,6 +40,9 @@ class SendgridTransport extends Transport
      */
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
+        $this->options = [
+            'headers' => ['Authorization' => 'Bearer ' . \App\Helper\MailHelper::getCurrentEmailAPI()]
+        ];
         $this->beforeSendPerformed($message);
 
         list($from, $fromName) = $this->getFromAddresses($message);
